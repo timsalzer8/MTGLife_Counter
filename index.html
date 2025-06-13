@@ -5,45 +5,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Magic Life Counter</title>
   <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
 </head>
 <body>
-  <main class="grid">
+
+  <main class="layout">
+    <div class="row top-row">
     <section class="player" id="player1">
+      <img src="img/blood.png" class="blood-splash" />
       <input type="text" class="name" placeholder="Player 1" />
-      <div class="life">40</div>
-      <div class="controls">
+      <div class="controls-horizontal">
         <button class="plus">+</button>
+        <div class="life">40</div>
         <button class="minus">-</button>
       </div>
     </section>
 
     <section class="player" id="player2">
+      <img src="img/blood.png" class="blood-splash" />
       <input type="text" class="name" placeholder="Player 2" />
-      <div class="life">40</div>
-      <div class="controls">
+      <div class="controls-horizontal">
         <button class="plus">+</button>
+        <div class="life">40</div>
         <button class="minus">-</button>
       </div>
     </section>
+    </div>
 
+    <div class="reset-container">
+      <button id="resetBtn"><span class="material-symbols-outlined">
+        replay
+      </span></button>
+    </div>
+
+    <div class="row bottom-row">
     <section class="player" id="player3">
+      <img src="img/blood.png" class="blood-splash" />
       <input type="text" class="name" placeholder="Player 3" />
-      <div class="life">40</div>
-      <div class="controls">
+      <div class="controls-horizontal">
         <button class="plus">+</button>
+        <div class="life">40</div>
         <button class="minus">-</button>
       </div>
     </section>
 
     <section class="player" id="player4">
+      <img src="img/blood.png" class="blood-splash" />
       <input type="text" class="name" placeholder="Player 4" />
-      <div class="life">40</div>
-      <div class="controls">
+      <div class="controls-horizontal">
         <button class="plus">+</button>
+        <div class="life">40</div>
         <button class="minus">-</button>
       </div>
     </section>
-  </main>
+    </div>
+</main>
 
   <script src="script.js"></script>
 </body>
