@@ -1,4 +1,6 @@
-const players = document.querySelectorAll(".player");
+const players = Array.from(document.querySelectorAll(".player"));
+players.forEach(player => console.log("Player geladen:", player.id));
+
 const bloodSound = document.getElementById("bloodSound");
 const victorySound = document.getElementById("victorySound");
 
@@ -11,50 +13,53 @@ players.forEach((player) => {
   const minusBtn = player.querySelector(".minus");
 
   plusBtn.addEventListener("click", () => {
+    console.log("PLUS geklickt für:", player.id);
     let current = parseInt(lifeDisplay.textContent.replace(/[^\d]/g, '')) || 0;
+  
+    const wasKO = player.classList.contains("ko");
+  
     current++;
     lifeDisplay.textContent = current;
     lifeDisplay.style.color = "black";
   
-    if (current > 0) {
-      if (player.classList.contains("ko")) {
-        defeatedPlayers--;
-      }
-  
+    if (wasKO && current > 0) {
+      console.log("KO wird entfernt für:", player.id);
       player.classList.remove("ko");
+      defeatedPlayers--;
   
       const blood = player.querySelector(".blood-splash");
       if (blood) blood.classList.remove("active");
-    }
-
-    if (victoryTriggered) {
-      victoryTriggered = false;
-      const crowns = document.querySelectorAll(".victory-frame");
-      crowns.forEach(c => c.classList.remove("active"));
+  
+      if (victoryTriggered) {
+        victoryTriggered = false;
+        const crowns = document.querySelectorAll(".victory-frame");
+        crowns.forEach(c => c.classList.remove("active"));
+      }
     }
   
     checkWinner();
   });
   
-
   minusBtn.addEventListener("click", () => {
+    console.log("MINUS geklickt für:", player.id);
     let current = parseInt(lifeDisplay.textContent.replace(/[^\d]/g, '')) || 0;
+  
     if (current > 0) {
       current--;
       lifeDisplay.textContent = current;
-
+  
       if (current === 0) {
         handleDefeat(player);
         player.classList.add("ko");
       } else {
         player.classList.remove("ko");
       }
-
+  
       checkWinner();
     }
   });
 });
-
+  
 const resetBtn = document.getElementById("resetBtn");
 resetBtn.addEventListener("click", () => {
   defeatedPlayers = 0;
@@ -92,40 +97,42 @@ function handleDefeat(player) {
 }
 
 function checkWinner() {
-  const alivePlayers = [];
+  const aliveIDs = new Set();
 
   players.forEach((player) => {
     const life = parseInt(player.querySelector(".life").textContent.replace(/[^\d]/g, '')) || 0;
     if (life > 0) {
-      alivePlayers.push(player);
+      aliveIDs.add(player.id);
     }
   });
 
-  if (alivePlayers.length === 1) {
-    const winner = alivePlayers[0];
+  console.log("Lebende Spieler (IDs):", Array.from(aliveIDs));
+  console.log("VictoryTriggered:", victoryTriggered);
+
+  if (aliveIDs.size === 1 && !victoryTriggered) {
+    victoryTriggered = true;
+
+    const winnerID = Array.from(aliveIDs)[0];
+    const winner = players.find(p => p.id === winnerID);
+
+    console.log("Victory triggered!");
+    console.log("Winner:", winner.id);
 
     players.forEach(p => p.classList.remove("winner"));
     winner.classList.remove("winner");
     void winner.offsetWidth;
     winner.classList.add("winner");
+
+    const crown = winner.querySelector(".victory-frame");
+    if (crown) crown.classList.add("active");
+
+    victorySound.currentTime = 0;
+    setTimeout(() => {
+      victorySound.play().then(() => {
+        console.log("Victory Sound wurde abgespielt.");
+      }).catch(e => console.warn("Victory Sound failed:", e));
+    }, 100);
   } else {
     players.forEach(p => p.classList.remove("winner"));
   }
-  if (alivePlayers.length === 1 && !victoryTriggered) {
-    victoryTriggered = true;
-  
-    const winner = alivePlayers[0];
-    players.forEach(p => p.classList.remove("winner"));
-    winner.classList.remove("winner");
-    void winner.offsetWidth;
-    winner.classList.add("winner");
-  
-    const crown = winner.querySelector(".victory-frame");
-    if (crown) crown.classList.add("active");
-  
-    victorySound.currentTime = 0;
-    setTimeout(() => {
-      victorySound.play().catch(e => console.warn("Victory sound failed:", e));
-    }, 100);
-  }  
 }
