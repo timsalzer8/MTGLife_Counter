@@ -46,6 +46,7 @@ body {
   }
   
   .player {
+    position: relative;
     text-align: center;
     margin: 1rem;
   }
@@ -76,4 +77,68 @@ body {
   .reset-container {
   display: flex;
   justify-content: center;
+}
+
+.blood-splash {
+  position: absolute;
+  width: 180px;
+  height: auto;
+  opacity: 0;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%) scale(1);
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.blood-splash.active {
+  animation: bloodSplashImpact 0.6s forwards;
+}
+
+@keyframes bloodSplashImpact {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.8);
+  }
+  30% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.3);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translateX(-50%) scale(1.2);
+  }
+}
+
+.victory-frame {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%) scale(1);
+  width: 150px;
+  height: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 5;
+}
+
+.player.winner .victory-frame {
+  animation: laurelPlop 0.6s forwards;
+  opacity: 1;
+}
+
+@keyframes laurelPlop {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.8);
+  }
+  30% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.3);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translateX(-50%) scale(1.1);
+  }
 }
