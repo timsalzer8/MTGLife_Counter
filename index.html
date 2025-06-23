@@ -12,27 +12,32 @@
 
   <main class="layout">
     <div class="row top-row">
-      <section class="player rotate-180" id="player1">
-      <img src="img/blood.png" class="blood-splash" />
-      <img src="img/victory.png" class="victory-frame" />
-      <input type="text" class="name" placeholder="Player 1" />
-      <div class="controls-horizontal">
-        <button class="plus">+</button>
-        <div class="life">1</div>
-        <button class="minus">-</button>
-      </div>
+      <section class="player player-1" id="player1">
+        <div class="stone-wrapper">
+          <img src="img/stone-panel.png" class="stone-bg rotate-135" />
+        </div>
+        <img src="img/blood.png" class="blood-splash" />
+        <img src="img/victory.png" class="victory-frame" />
+        <div class="player-name">Player 1</div>
+        <div class="controls-horizontal">
+          <button class="minus">-</button>
+          <div class="life">1</div>
+          <button class="plus">+</button>
+        </div>
       </section>
- 
-
+      
     
-      <section class="player rotate-180" id="player2">
+      <section class="player player-2 rotate-180" id="player2">
+        <div class="stone-wrapper">
+          <img src="img/stone-panel.png" class="stone-bg rotate-225" />
+        </div>
       <img src="img/blood.png" class="blood-splash" />
       <img src="img/victory.png" class="victory-frame" />
-      <input type="text" class="name" placeholder="Player 2" />
+      <div class="player-name">Player 2</div>
       <div class="controls-horizontal">
-        <button class="plus">+</button>
-        <div class="life">1</div>
         <button class="minus">-</button>
+        <div class="life">1</div>
+        <button class="plus">+</button>
       </div>
       </section>
       </div>
@@ -44,25 +49,31 @@
     </div>
 
     <div class="row bottom-row">
-    <section class="player" id="player3">
+    <section class="player player-3" id="player3">
+      <div class="stone-wrapper">
+        <img src="img/stone-panel.png" class="stone-bg rotate-315" />
+      </div>
       <img src="img/blood.png" class="blood-splash" />
       <img src="img/victory.png" class="victory-frame" />
-      <input type="text" class="name" placeholder="Player 3" />
+      <div class="player-name">Player 3</div>
       <div class="controls-horizontal">
-        <button class="plus">+</button>
-        <div class="life">1</div>
         <button class="minus">-</button>
+        <div class="life">1</div>
+        <button class="plus">+</button>
       </div>
     </section>
 
-    <section class="player" id="player4">
+    <section class="player player-4" id="player4">
+      <div class="stone-wrapper">
+        <img src="img/stone-panel.png" class="stone-bg rotate-45" />
+      </div>
       <img src="img/blood.png" class="blood-splash" />
       <img src="img/victory.png" class="victory-frame" />
-      <input type="text" class="name" placeholder="Player 4" />
+      <div class="player-name">Player 4</div>
       <div class="controls-horizontal">
-        <button class="plus">+</button>
-        <div class="life">1</div>
         <button class="minus">-</button>
+        <div class="life">1</div>
+        <button class="plus">+</button>
       </div>
     </section>
     </div>
