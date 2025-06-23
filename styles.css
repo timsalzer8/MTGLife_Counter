@@ -256,7 +256,6 @@ body {
   pointer-events: none;
 }
 
-
 @keyframes runeFlicker {
   0%   { text-shadow: 0 0 4px #aefeff, 0 0 8px #00ccff; }
   6%   { text-shadow: 0 0 2px #6cd6ff, 0 0 4px #88eaff; }
@@ -268,9 +267,8 @@ body {
   100% { text-shadow: 0 0 4px #aefeff, 0 0 8px #00ccff; }
 }
 
-
 .controls-horizontal button {
-  background-color: rgba(0, 0, 0, 0.2); /* leichte Abdunklung */
+  background-color: rgba(0, 0, 0, 0.2);
   border: none;
   color: #aefeff;
   font-size: 2.2rem;
@@ -278,8 +276,6 @@ body {
   padding: 0.3rem 0.7rem;
   border-radius: 8px;
   cursor: pointer;
-
-  /* Tiefenwirkung durch Schatten */
   box-shadow:
     inset 2px 2px 4px rgba(0, 0, 0, 0.6),
     inset -1px -1px 2px rgba(255, 255, 255, 0.05);
@@ -290,7 +286,6 @@ body {
 
   transition: all 0.15s ease-in-out;
 }
-
 
 .controls-horizontal button:hover {
   width: 50px;
