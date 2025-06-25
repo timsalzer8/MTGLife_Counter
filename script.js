@@ -20,7 +20,6 @@ players.forEach((player) => {
   
     current++;
     lifeDisplay.textContent = current;
-    lifeDisplay.style.color = "black";
   
     if (wasKO && current > 0) {
       console.log("KO wird entfernt für:", player.id);
@@ -68,7 +67,7 @@ resetBtn.addEventListener("click", () => {
   players.forEach((player) => {
     const lifeDisplay = player.querySelector(".life");
     lifeDisplay.textContent = 40;
-    lifeDisplay.style.color = "black";
+  
     player.classList.remove("ko", "winner");
 
     const blood = player.querySelector(".blood-splash");
@@ -80,12 +79,52 @@ resetBtn.addEventListener("click", () => {
 
 function handleDefeat(player) {
   const blood = player.querySelector(".blood-splash");
+  const splatterContainer = player.querySelector(".blood-splatter-container");
+
   if (blood) {
     blood.classList.remove("active");
     void blood.offsetWidth;
     blood.classList.add("active");
   }
 
+  if (splatterContainer) {
+    splatterContainer.innerHTML = "";
+
+    const playerAngles = {
+      player1: 280,
+      player2: 250,
+      player3: 300,
+      player4: 250,
+    };
+
+    const playerId = player.id;
+    const baseAngleDeg = playerAngles[playerId] || 0;
+    const baseAngleRad = baseAngleDeg * (Math.PI / 180);
+
+    for (let i = 0; i < 100; i++) {
+      const dot = document.createElement("div");
+      dot.classList.add("blood-dot");
+
+      const angle = baseAngleRad + (Math.random() - 0.5) * (Math.PI / 2);
+      const distance = 500 + Math.random() * 80;
+
+      const x = Math.cos(angle) * distance + "px";
+      const y = Math.sin(angle) * distance + "px";
+
+      dot.style.top = "100px";
+      dot.style.left = "48%";
+      dot.style.transform = "translate(-50%, -50%)";
+      dot.style.setProperty("--x", x);
+      dot.style.setProperty("--y", y);
+      dot.style.width = `${4 + Math.random() * 6}px`;
+      dot.style.height = dot.style.width;
+
+
+      splatterContainer.appendChild(dot);
+    }
+  }
+
+  player.classList.add("ko");
   defeatedPlayers++;
 
   if (defeatedPlayers < 3) {
@@ -95,6 +134,7 @@ function handleDefeat(player) {
     }
   }
 }
+
 
 function checkWinner() {
   const aliveIDs = new Set();
@@ -136,3 +176,30 @@ function checkWinner() {
     players.forEach(p => p.classList.remove("winner"));
   }
 }
+
+const overlay = document.getElementById("name-overlay");
+const nameInput = document.getElementById("name-input");
+const confirmBtn = document.getElementById("name-confirm");
+
+let currentPlayerNameDiv = null;
+
+document.querySelectorAll(".name-box").forEach(box => {
+  box.addEventListener("click", () => {
+    const playerId = box.dataset.player;
+    currentPlayerNameDiv = document.querySelector(`#${playerId} .player-name`);
+    nameInput.value = currentPlayerNameDiv.textContent.trim();
+    overlay.classList.remove("hidden");
+    nameInput.focus();
+  });
+});
+
+confirmBtn.addEventListener("click", () => {
+  const name = nameInput.value.trim();
+  if (currentPlayerNameDiv) {
+    currentPlayerNameDiv.textContent = name || currentPlayerNameDiv.dataset.placeholder || "Player";
+  }
+  overlay.classList.add("hidden");
+  confirmBtn.addEventListener("click", () => {
+    console.log("Name geändert!")
+  })
+});

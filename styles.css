@@ -19,6 +19,7 @@ body {
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    z-index: 2;
   }
   
   .material-symbols-outlined {
@@ -63,9 +64,13 @@ body {
       0 0 8px #ffffff;
     font-weight: bold;
     z-index: 3;
+    animation: runeFlicker 3s infinite ease-in-out;
   }
 
   .player-name {
+    padding: 0.4rem 1rem;
+    min-width: 100px;
+    text-align: center;
     font-size: 1.2rem;
     margin-bottom: 0.3rem;
     color: #d4f9ff;
@@ -74,6 +79,12 @@ body {
       0 0 4px #00ccff,
       0 0 6px #00eaff;
     z-index: 3;
+    box-shadow:
+  inset 6px 6px 12px rgba(0, 0, 0, 0.6),
+  inset -3px -3px 6px rgba(255, 255, 255, 0.05),
+  0 0 12px rgba(0, 255, 255, 0.15);
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
   }
   
 .player-name, .life {
@@ -85,14 +96,60 @@ body {
     0 0 8px #00eaff,
     inset 0 0 1px #ffffff;
 }
+#name-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
 
-  .layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    padding: 2rem;
+.overlay-content {
+  background: #111;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 20px #00ffff66;
+  text-align: center;
+  font-family: 'Cinzel', serif;
+  color: #aefeff;
+}
+
+#name-input {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  border: none;
+  width: 220px;
+  background: #000;
+  color: #aefeff;
+  text-align: center;
+}
+
+#name-confirm {
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  background: #00eaff;
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
   }
   
 .row {
@@ -116,33 +173,19 @@ body {
 
 .blood-splash {
   position: absolute;
-  width: 180px;
+  width: 200px;
   height: auto;
   opacity: 0;
-  top: -60px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%) scale(1);
   transition: opacity 0.3s ease-in-out;
   pointer-events: none;
+  z-index: 5;
 }
 
 .blood-splash.active {
-  animation: bloodSplashImpact 0.6s forwards;
-}
-
-@keyframes bloodSplashImpact {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) scale(0.8);
-  }
-  30% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1.3);
-  }
-  100% {
-    opacity: 0.5;
-    transform: translateX(-50%) scale(1.2);
-  }
+  animation: bloodSplashFatality 3.5s ease-in-out forwards;
 }
 
 .victory-frame {
@@ -257,18 +300,18 @@ body {
 }
 
 @keyframes runeFlicker {
-  0%   { text-shadow: 0 0 4px #aefeff, 0 0 8px #00ccff; }
-  6%   { text-shadow: 0 0 2px #6cd6ff, 0 0 4px #88eaff; }
-  14%  { text-shadow: 0 0 7px #aefeff, 0 0 12px #ffffff; }
-  25%  { text-shadow: 0 0 5px #00eaff, 0 0 10px #ccffff; }
-  41%  { text-shadow: 0 0 6px #d5faff, 0 0 14px #ffffff; }
-  63%  { text-shadow: 0 0 3px #6cd6ff, 0 0 5px #99f0ff; }
-  78%  { text-shadow: 0 0 6px #aefeff, 0 0 12px #ffffff; }
-  100% { text-shadow: 0 0 4px #aefeff, 0 0 8px #00ccff; }
+  0%   { text-shadow: 0 0 4px #3fd2b1, 0 0 8px #29a69c; }
+  14%  { text-shadow: 0 0 3px #5be3d0, 0 0 6px #1fb6a6; }
+  28%  { text-shadow: 0 0 6px #4de6c6, 0 0 10px #17887d; }
+  42%  { text-shadow: 0 0 3px #33ddc1, 0 0 7px #1aa195; }
+  60%  { text-shadow: 0 0 5px #2ce2c0, 0 0 9px #0f6e66; }
+  75%  { text-shadow: 0 0 4px #52f5da, 0 0 12px #1fb5ab; }
+  100% { text-shadow: 0 0 4px #3fd2b1, 0 0 8px #29a69c; }
 }
 
 .controls-horizontal button {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
   border: none;
   color: #aefeff;
   font-size: 2.2rem;
@@ -285,23 +328,79 @@ body {
     0 0 6px #00eaff;
 
   transition: all 0.15s ease-in-out;
+  animation: runeFlicker 3s infinite ease-in-out;
 }
 
 .controls-horizontal button:hover {
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  padding: 0;
-  font-size:2.4rem;
   box-shadow:
-    inset 2px 2px 6px rgba(0, 0, 0, 0.8),
-    inset -2px -2px 6px rgba(0, 255, 255, 0.2);
-  transform: scale(1.05);
-  color: #ffffff;
+  inset 2px 2px 6px rgba(0, 0, 0, 0.8),
+  inset -2px -2px 6px rgba(0, 255, 255, 0.2);
+  color: #0ed4d4;
 }
 
 .rotate-45  { transform: translate(-50%, -50%) rotate(90deg); }
 .rotate-135 { transform: translate(-50%, -50%) rotate(90deg); }
 .rotate-225 { transform: translate(-50%, -50%) rotate(90deg); }
 .rotate-315 { transform: translate(-50%, -50%) rotate(90deg); }
+
+.blood-splatter-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.blood-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: #8b0000;
+  border-radius: 50%;
+  opacity: 0.9;
+  animation: splatFlyFatality 7s ease-out forwards;
+  filter: drop-shadow(0 0 2px #4b0000);
+}
+
+@keyframes splatFly {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes splatFlyFatality {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  10% {
+    transform: translate(calc(var(--x) * 0.6), calc(var(--y) * 0.6)) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes bloodSplashFatality {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.7);
+  }
+  12% {
+    opacity: 1;
+    transform: translateX(-50%) scale(2.5);
+  }
+  100% {
+    opacity: 0.8;
+    transform: translateX(-50%) scale(1);
+  }
+}

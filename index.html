@@ -17,8 +17,9 @@
           <img src="img/stone-panel.png" class="stone-bg rotate-135" />
         </div>
         <img src="img/blood.png" class="blood-splash" />
+        <div class="blood-splatter-container"></div>
         <img src="img/victory.png" class="victory-frame" />
-        <div class="player-name">Player 1</div>
+        <div class="player-name" data-placeholder="Player 1">Player 1</div>
         <div class="controls-horizontal">
           <button class="minus">-</button>
           <div class="life">1</div>
@@ -32,8 +33,9 @@
           <img src="img/stone-panel.png" class="stone-bg rotate-225" />
         </div>
       <img src="img/blood.png" class="blood-splash" />
+      <div class="blood-splatter-container"></div>
       <img src="img/victory.png" class="victory-frame" />
-      <div class="player-name">Player 2</div>
+      <div class="player-name" data-placeholder="Player 1">Player 2</div>
       <div class="controls-horizontal">
         <button class="minus">-</button>
         <div class="life">1</div>
@@ -54,8 +56,9 @@
         <img src="img/stone-panel.png" class="stone-bg rotate-315" />
       </div>
       <img src="img/blood.png" class="blood-splash" />
+      <div class="blood-splatter-container"></div>
       <img src="img/victory.png" class="victory-frame" />
-      <div class="player-name">Player 3</div>
+      <div class="player-name" data-placeholder="Player 1">Player 3</div>
       <div class="controls-horizontal">
         <button class="minus">-</button>
         <div class="life">1</div>
@@ -68,8 +71,9 @@
         <img src="img/stone-panel.png" class="stone-bg rotate-45" />
       </div>
       <img src="img/blood.png" class="blood-splash" />
+      <div class="blood-splatter-container"></div>
       <img src="img/victory.png" class="victory-frame" />
-      <div class="player-name">Player 4</div>
+      <div class="player-name" data-placeholder="Player 1">Player 4</div>
       <div class="controls-horizontal">
         <button class="minus">-</button>
         <div class="life">1</div>
@@ -85,5 +89,13 @@
   <audio id="bloodSound" src="sounds/blood-sound.mp3" preload="auto"></audio>
   <audio id="victorySound" src="sounds/victory-sound.mp3" preload="auto"></audio>
   <script src="script.js"></script>
+
+  <div id="name-overlay" class="hidden">
+    <div class="overlay-content">
+      <label for="name-input">Set player name:</label>
+      <input type="text" id="name-input" maxlength="20" />
+      <button id="name-confirm">OK</button>
+    </div>
+  </div>
 </body>
 </html>
