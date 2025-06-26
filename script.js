@@ -163,6 +163,12 @@ function checkWinner() {
     void winner.offsetWidth;
     winner.classList.add("winner");
 
+    document.body.classList.add("shake");
+
+    setTimeout(() => {
+      document.body.classList.remove("shake");
+    }, 1200);
+
     const crown = winner.querySelector(".victory-frame");
     if (crown) crown.classList.add("active");
 
@@ -175,6 +181,19 @@ function checkWinner() {
   } else {
     players.forEach(p => p.classList.remove("winner"));
   }
+  const lightning = document.getElementById("lightning");
+lightning.classList.add("flash");
+
+setTimeout(() => {
+  lightning.classList.remove("flash");
+}, 300);
+const arena = document.getElementById("game-arena");
+
+arena.classList.add("shake-wave");
+
+setTimeout(() => {
+  arena.classList.remove("shake-wave");
+}, 3500);
 }
 
 const overlay = document.getElementById("name-overlay");
@@ -183,23 +202,21 @@ const confirmBtn = document.getElementById("name-confirm");
 
 let currentPlayerNameDiv = null;
 
-document.querySelectorAll(".name-box").forEach(box => {
-  box.addEventListener("click", () => {
-    const playerId = box.dataset.player;
-    currentPlayerNameDiv = document.querySelector(`#${playerId} .player-name`);
-    nameInput.value = currentPlayerNameDiv.textContent.trim();
+document.querySelectorAll(".player-name").forEach(nameDiv => {
+  nameDiv.addEventListener("click", () => {
+    currentPlayerNameDiv = nameDiv;
+    nameInput.value = nameDiv.textContent.trim();
     overlay.classList.remove("hidden");
     nameInput.focus();
   });
 });
 
 confirmBtn.addEventListener("click", () => {
+  console.log("OK-Button wurde geklickt!");
   const name = nameInput.value.trim();
   if (currentPlayerNameDiv) {
     currentPlayerNameDiv.textContent = name || currentPlayerNameDiv.dataset.placeholder || "Player";
   }
   overlay.classList.add("hidden");
-  confirmBtn.addEventListener("click", () => {
-    console.log("Name geändert!")
-  })
+  console.log("Overlay sollte jetzt ausgeblendet sein.");
 });

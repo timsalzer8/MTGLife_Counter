@@ -9,7 +9,7 @@
 
 </head>
 <body>
-
+  <div class="arena" id="game-arena">
   <main class="layout">
     <div class="row top-row">
       <section class="player player-1" id="player1">
@@ -18,7 +18,7 @@
         </div>
         <img src="img/blood.png" class="blood-splash" />
         <div class="blood-splatter-container"></div>
-        <img src="img/victory.png" class="victory-frame" />
+        <img src="img/victory-sigil.png" class="victory-frame" />
         <div class="player-name" data-placeholder="Player 1">Player 1</div>
         <div class="controls-horizontal">
           <button class="minus">-</button>
@@ -34,7 +34,7 @@
         </div>
       <img src="img/blood.png" class="blood-splash" />
       <div class="blood-splatter-container"></div>
-      <img src="img/victory.png" class="victory-frame" />
+      <img src="img/victory-sigil.png" class="victory-frame" />
       <div class="player-name" data-placeholder="Player 1">Player 2</div>
       <div class="controls-horizontal">
         <button class="minus">-</button>
@@ -57,7 +57,7 @@
       </div>
       <img src="img/blood.png" class="blood-splash" />
       <div class="blood-splatter-container"></div>
-      <img src="img/victory.png" class="victory-frame" />
+      <img src="img/victory-sigil.png" class="victory-frame" />
       <div class="player-name" data-placeholder="Player 1">Player 3</div>
       <div class="controls-horizontal">
         <button class="minus">-</button>
@@ -72,7 +72,7 @@
       </div>
       <img src="img/blood.png" class="blood-splash" />
       <div class="blood-splatter-container"></div>
-      <img src="img/victory.png" class="victory-frame" />
+      <img src="img/victory-sigil.png" class="victory-frame" />
       <div class="player-name" data-placeholder="Player 1">Player 4</div>
       <div class="controls-horizontal">
         <button class="minus">-</button>
@@ -88,7 +88,6 @@
 
   <audio id="bloodSound" src="sounds/blood-sound.mp3" preload="auto"></audio>
   <audio id="victorySound" src="sounds/victory-sound.mp3" preload="auto"></audio>
-  <script src="script.js"></script>
 
   <div id="name-overlay" class="hidden">
     <div class="overlay-content">
@@ -96,6 +95,9 @@
       <input type="text" id="name-input" maxlength="20" />
       <button id="name-confirm">OK</button>
     </div>
+  </div>
+  <script src="script.js"></script>
+  <div class="lightning-flash" id="lightning"></div>
   </div>
 </body>
 </html>
